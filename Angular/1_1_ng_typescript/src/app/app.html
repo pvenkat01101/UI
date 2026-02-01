@@ -1,0 +1,32 @@
+<nav class="sidebar">
+  <div class="nav-header">
+    <h2>TS Deep Dive</h2>
+    <span class="badge">Phase 1</span>
+  </div>
+  <ul>
+    <li>
+      <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Home</a>
+    </li>
+    <li>
+      <a routerLink="/advanced-types" routerLinkActive="active">1. Advanced Types</a>
+    </li>
+    <li>
+      <a routerLink="/generics" routerLinkActive="active">2. Generics</a>
+    </li>
+    <li>
+      <a routerLink="/decorators" routerLinkActive="active">3. Decorators</a>
+    </li>
+    <li>
+      <a routerLink="/type-guards" routerLinkActive="active">4. Type Guards</a>
+    </li>
+    <li>
+      <a routerLink="/utility-types" routerLinkActive="active">5. Utility Types</a>
+    </li>
+    <li>
+      <a routerLink="/module-resolution" routerLinkActive="active">6. Module Resolution</a>
+    </li>
+  </ul>
+</nav>
+<main class="content-area">
+  <router-outlet />
+</main>

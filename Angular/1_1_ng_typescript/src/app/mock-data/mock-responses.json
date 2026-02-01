@@ -1,0 +1,98 @@
+{
+  "___COMMENT___": "Mock API responses for TypeScript Deep Dive. Backend: localhost:8080. Update expected responses below once backend is running.",
+
+  "GET /api/typescript/users": {
+    "description": "Returns list of users with different roles for type demo",
+    "response": [
+      { "id": 1, "name": "Alice Admin", "email": "alice@example.com", "role": "admin", "isActive": true, "metadata": { "department": "Engineering" } },
+      { "id": 2, "name": "Bob Editor", "email": "bob@example.com", "role": "editor", "isActive": true, "metadata": { "publications": 15 } },
+      { "id": 3, "name": "Charlie Viewer", "email": "charlie@example.com", "role": "viewer", "isActive": false, "metadata": {} },
+      { "id": 4, "name": "Diana Admin", "email": "diana@example.com", "role": "admin", "isActive": true, "metadata": { "department": "Product" } },
+      { "id": 5, "name": "Eve Editor", "email": "eve@example.com", "role": "editor", "isActive": true, "metadata": { "publications": 8 } }
+    ]
+  },
+
+  "GET /api/typescript/products": {
+    "description": "Returns list of products for generics demo",
+    "response": [
+      { "id": 1, "name": "TypeScript Handbook", "price": 29.99, "category": "books", "inStock": true, "tags": ["typescript", "programming"] },
+      { "id": 2, "name": "Angular DevKit", "price": 49.99, "category": "tools", "inStock": true, "tags": ["angular", "development"] },
+      { "id": 3, "name": "RxJS Masterclass", "price": 39.99, "category": "courses", "inStock": false, "tags": ["rxjs", "reactive"] },
+      { "id": 4, "name": "VS Code Extension Pack", "price": 0, "category": "tools", "inStock": true, "tags": ["vscode", "extension"] }
+    ]
+  },
+
+  "POST /api/typescript/validate": {
+    "description": "Validates input data, returns validation result for type guard demo",
+    "requestBody": { "field": "email", "value": "test@example.com" },
+    "response": {
+      "isValid": true,
+      "errors": []
+    }
+  },
+
+  "POST /api/typescript/validate (error case)": {
+    "description": "Example validation failure response",
+    "requestBody": { "field": "email", "value": "invalid-email" },
+    "response": {
+      "isValid": false,
+      "errors": [
+        { "field": "email", "message": "Invalid email format", "code": "INVALID_FORMAT" }
+      ]
+    }
+  },
+
+  "GET /api/typescript/config": {
+    "description": "Returns app configuration for utility types demo",
+    "response": {
+      "theme": "dark",
+      "language": "en",
+      "features": {
+        "darkMode": true,
+        "notifications": true,
+        "analytics": false,
+        "betaFeatures": false
+      },
+      "apiUrl": "http://localhost:8080",
+      "maxRetries": 3
+    }
+  },
+
+  "PATCH /api/typescript/users/1": {
+    "description": "Partial update of user - demonstrates Partial<User> utility type",
+    "requestBody": { "name": "Alice Updated", "isActive": false },
+    "response": {
+      "id": 1,
+      "name": "Alice Updated",
+      "email": "alice@example.com",
+      "role": "admin",
+      "isActive": false,
+      "metadata": { "department": "Engineering" }
+    }
+  },
+
+  "GET /api/typescript/search?q=angular": {
+    "description": "Generic search endpoint - demonstrates SearchResult<T>",
+    "response": {
+      "items": [
+        { "id": 2, "name": "Angular DevKit", "price": 49.99, "category": "tools", "inStock": true, "tags": ["angular", "development"] }
+      ],
+      "query": "angular",
+      "totalMatches": 1
+    }
+  },
+
+  "GET /api/typescript/users/paginated?page=1&pageSize=2": {
+    "description": "Paginated users - demonstrates PaginatedResponse<User>",
+    "response": {
+      "data": [
+        { "id": 1, "name": "Alice Admin", "email": "alice@example.com", "role": "admin", "isActive": true },
+        { "id": 2, "name": "Bob Editor", "email": "bob@example.com", "role": "editor", "isActive": true }
+      ],
+      "total": 5,
+      "page": 1,
+      "pageSize": 2,
+      "hasNext": true
+    }
+  }
+}
