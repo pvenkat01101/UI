@@ -26,6 +26,13 @@ The bootstrap process is the sequence of steps Angular executes from the moment 
 #### The Complete Sequence
 
 ```
+main.js: your actual Angular app entry point (bootstrap application)
+polyfills.js: the browser compatibility translator (zone.js,)
+runtime.js: The loader brain (Webpack/CLI runtime) - lazyload
+  - how to load chunks lazily
+  - how to resolve dependencies
+  - how to start execution order
+
 Browser loads index.html
   → <script> tags load bundled JS (main.js, polyfills.js, runtime.js)
     → main.ts executes
