@@ -1,0 +1,83 @@
+.panel {
+  background: #fff8ed;
+  border: 1px solid #e0d7ca;
+  border-radius: 12px;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.panel-header h2 {
+  margin: 0 0 0.2rem;
+  font-size: 1.2rem;
+}
+
+.helper {
+  margin: 0;
+  color: #6a6156;
+  font-size: 0.9rem;
+}
+
+.category-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.category-button {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #fef6e8;
+  border: 1px solid transparent;
+}
+
+.category-button.active {
+  border-color: #c69d54;
+  background: #ffe9c5;
+}
+
+.count {
+  background: #e7dccb;
+  padding: 0.1rem 0.45rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+}
+
+.category-actions {
+  display: flex;
+  gap: 0.4rem;
+  margin-top: 0.35rem;
+}
+
+.category-actions .danger {
+  background: #ffd3cc;
+}
+
+.rename-form {
+  margin-top: 0.5rem;
+  display: flex;
+  gap: 0.4rem;
+}
+
+.add-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.add-form label {
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.error {
+  margin: 0;
+  color: #b33d2f;
+  font-size: 0.85rem;
+}

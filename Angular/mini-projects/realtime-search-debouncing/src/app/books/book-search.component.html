@@ -1,0 +1,97 @@
+<section class="search-shell">
+  <!-- Hero header: gives context to the feature. -->
+  <header class="hero">
+    <p class="badge">Angular 21 • RxJS</p>
+    <h1>Real-Time Book Search</h1>
+    <p class="subtitle">
+      Debounced typeahead using the Google Books API, built with RxJS streams and OnPush UI.
+    </p>
+  </header>
+
+  <!-- Search input card: Reactive Forms binds the input to a stream. -->
+  <div class="search-card">
+    <label for="book-query">Search for a book</label>
+    <div class="search-input">
+      <span class="icon">🔎</span>
+      <input
+        id="book-query"
+        type="text"
+        placeholder="Try: harry potter, angular, clean architecture"
+        autocomplete="off"
+        [formControl]="searchControl"
+      />
+      <span class="meta">Debounce: {{ debounceMs }}ms</span>
+    </div>
+    <p class="hint">Minimum {{ minQueryLength }} characters. Queries are trimmed and de-duplicated.</p>
+  </div>
+
+  @if (vm$ | async; as vm) {
+    <!-- Status region: shows idle, loading, or error states. -->
+    <div class="status">
+      @if (vm.showIdle) {
+        <p class="state">Type to search. Results appear as you pause typing.</p>
+      } @else if (vm.showTooShort) {
+        <p class="state">Keep typing… at least {{ minQueryLength }} characters.</p>
+      } @else if (vm.loading) {
+        <div class="loading">
+          <span class="spinner"></span>
+          <span>Searching books…</span>
+        </div>
+      } @else if (vm.error) {
+        <div class="error">{{ vm.error }}</div>
+      }
+    </div>
+
+    @if (!vm.loading && !vm.error && vm.canSearch) {
+      @if (vm.results.length === 0) {
+        <p class="state">No results yet. Try a different query.</p>
+      } @else {
+        <!-- Results list: safe highlighting uses <mark> on pre-split text parts. -->
+        <div class="results">
+          <div class="results-header">
+            <h2>Results</h2>
+            <span class="count">{{ vm.results.length }}</span>
+          </div>
+          <div class="result-list">
+            @for (book of vm.results; track book.id) {
+              <article class="result-card">
+                @if (book.thumbnail) {
+                  <img [src]="book.thumbnail" [alt]="book.title" />
+                } @else {
+                  <div class="thumb placeholder">No cover</div>
+                }
+                <div class="result-body">
+                  <h3>
+                    @for (part of book.highlightedTitle; track $index) {
+                      @if (part.match) {
+                        <mark>{{ part.text }}</mark>
+                      } @else {
+                        <span>{{ part.text }}</span>
+                      }
+                    }
+                  </h3>
+                  <p class="authors">
+                    @if (book.authors.length) {
+                      {{ book.authors.join(', ') }}
+                    } @else {
+                      Unknown author
+                    }
+                  </p>
+                  @if (book.previewLink) {
+                    <a class="preview" [href]="book.previewLink" target="_blank" rel="noopener">
+                      Preview
+                    </a>
+                  }
+                </div>
+              </article>
+            }
+          </div>
+        </div>
+      }
+    }
+  }
+</section>
+
+<!-- References:
+  - Angular template control flow (@if, @for): https://angular.dev/guide/templates/control-flow
+-->

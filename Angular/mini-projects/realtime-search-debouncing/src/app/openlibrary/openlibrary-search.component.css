@@ -1,0 +1,235 @@
+/* Host container keeps the feature centered and readable. */
+:host {
+  width: min(960px, 100%);
+  display: block;
+  margin: 0 auto;
+}
+
+/* Layout shell: vertical spacing between blocks. */
+.search-shell {
+  display: grid;
+  gap: 24px;
+}
+
+/* Hero section: high-contrast intro panel. */
+.hero {
+  background: linear-gradient(135deg, #0f172a, #1e293b);
+  color: #f8fafc;
+  padding: 28px 24px;
+  border-radius: 20px;
+  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.2);
+}
+
+/* Badge styling for quick visual category. */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  background: rgba(255, 255, 255, 0.15);
+  padding: 6px 12px;
+  border-radius: 999px;
+  margin-bottom: 12px;
+}
+
+/* Responsive hero title sizing. */
+.hero h1 {
+  font-size: clamp(1.8rem, 3vw, 2.6rem);
+  margin: 0 0 8px;
+}
+
+.subtitle {
+  margin: 0;
+  color: #e2e8f0;
+}
+
+/* Search input card. */
+.search-card {
+  background: #ffffff;
+  padding: 20px 24px;
+  border-radius: 18px;
+  box-shadow: 0 10px 20px rgba(15, 23, 42, 0.08);
+}
+
+.search-card label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+/* Input styling with icon and debounce metadata. */
+.search-input {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  border-radius: 12px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+}
+
+.search-input input {
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 1rem;
+  width: 100%;
+}
+
+.meta {
+  font-size: 0.75rem;
+  color: #64748b;
+}
+
+.hint {
+  margin-top: 10px;
+  color: #64748b;
+  font-size: 0.85rem;
+}
+
+/* Status area for idle/loading/error messages. */
+.status {
+  min-height: 32px;
+}
+
+.state {
+  color: #475569;
+  margin: 0;
+}
+
+/* Loading row with a simple CSS spinner. */
+.loading {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.spinner {
+  width: 18px;
+  height: 18px;
+  border: 2px solid #cbd5f5;
+  border-top-color: #0ea5e9;
+  border-radius: 50%;
+  animation: spin 0.9s linear infinite;
+}
+
+.error {
+  padding: 12px 16px;
+  background: #fee2e2;
+  color: #991b1b;
+  border-radius: 12px;
+}
+
+/* Results layout. */
+.results {
+  display: grid;
+  gap: 16px;
+}
+
+.results-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.results-header h2 {
+  margin: 0;
+}
+
+.count {
+  background: #0f172a;
+  color: #f8fafc;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 0.8rem;
+}
+
+.result-list {
+  display: grid;
+  gap: 16px;
+}
+
+/* Card layout for each book. */
+.result-card {
+  display: grid;
+  grid-template-columns: 64px 1fr;
+  gap: 16px;
+  padding: 16px;
+  border-radius: 16px;
+  background: #ffffff;
+  box-shadow: 0 6px 16px rgba(15, 23, 42, 0.08);
+}
+
+.result-card img,
+.thumb.placeholder {
+  width: 64px;
+  height: 96px;
+  border-radius: 10px;
+  object-fit: cover;
+  background: #e2e8f0;
+}
+
+.thumb.placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  color: #64748b;
+  text-align: center;
+  padding: 6px;
+}
+
+.result-body h3 {
+  margin: 0 0 6px;
+  font-size: 1.05rem;
+}
+
+/* Highlighted search substring. */
+.result-body mark {
+  background: #fde68a;
+  padding: 0 2px;
+  border-radius: 4px;
+}
+
+.authors,
+.meta-line {
+  margin: 0 0 10px;
+  color: #475569;
+}
+
+/* Simple spinner animation. */
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Mobile adjustments for smaller screens. */
+@media (max-width: 700px) {
+  .result-card {
+    grid-template-columns: 1fr;
+  }
+
+  .result-card img,
+  .thumb.placeholder {
+    width: 100%;
+    height: 180px;
+  }
+
+  .search-input {
+    grid-template-columns: auto 1fr;
+  }
+
+  .meta {
+    display: none;
+  }
+}
+
+/* References:
+  - CSS clamp(): https://developer.mozilla.org/en-US/docs/Web/CSS/clamp
+*/

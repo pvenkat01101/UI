@@ -1,0 +1,41 @@
+<div class="todo-item" cdkDrag>
+  <div class="drag-handle" cdkDragHandle title="Drag to reorder">::</div>
+
+  <input
+    type="checkbox"
+    class="toggle"
+    [checked]="todo.completed"
+    (change)="toggleCompleted()"
+    aria-label="Toggle completed"
+  />
+
+  <div class="todo-content">
+    <ng-container *ngIf="!isEditing(); else editMode">
+      <span class="title" [class.completed]="todo.completed">{{ todo.title }}</span>
+      <button type="button" class="link" (click)="startEdit()">Edit</button>
+    </ng-container>
+
+    <ng-template #editMode>
+      <form class="edit-form" (ngSubmit)="saveEdit()">
+        <input
+          type="text"
+          [formControl]="editControl"
+          (keydown.escape)="cancelEdit()"
+          aria-label="Edit todo title"
+        />
+        <button type="submit" [disabled]="editControl.invalid">Save</button>
+        <button type="button" (click)="cancelEdit()">Cancel</button>
+      </form>
+    </ng-template>
+  </div>
+
+  <span class="badge">{{ categoryName(todo.categoryId) }}</span>
+
+  <select [value]="todo.categoryId" (change)="assignCategory($any($event.target).value)">
+    <option *ngFor="let category of categories; trackBy: trackById" [value]="category.id">
+      {{ category.name }}
+    </option>
+  </select>
+
+  <button type="button" class="danger" (click)="deleteTodo()">Delete</button>
+</div>

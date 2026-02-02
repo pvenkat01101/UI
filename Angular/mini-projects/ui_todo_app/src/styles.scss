@@ -1,0 +1,49 @@
+/* Global styles keep the baseline consistent across the app. */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Source Sans 3", "Segoe UI", Tahoma, sans-serif;
+  background: #f5f2ec;
+}
+
+button,
+input,
+select {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+input,
+select {
+  border: 1px solid #c9c2b8;
+  border-radius: 6px;
+  padding: 0.5rem 0.7rem;
+  background: #fffaf4;
+}
+
+button {
+  border: 1px solid #b7aea2;
+  background: #fff3e1;
+  padding: 0.5rem 0.75rem;
+  border-radius: 6px;
+  transition: transform 0.1s ease, background 0.2s ease;
+}
+
+button:hover {
+  background: #ffe6c6;
+}
+
+button:active {
+  transform: translateY(1px);
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}

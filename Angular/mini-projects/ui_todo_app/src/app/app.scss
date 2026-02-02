@@ -1,0 +1,36 @@
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: radial-gradient(circle at top, #f7f4f0, #f1ede7 45%, #e8e2d9 100%);
+  color: #1f1e1b;
+}
+
+.app-header {
+  padding: 2rem 2.5rem 1rem;
+}
+
+.title-block h1 {
+  font-size: 2.4rem;
+  margin-bottom: 0.25rem;
+  font-family: "Georgia", "Times New Roman", serif;
+  letter-spacing: -0.02em;
+}
+
+.title-block p {
+  margin: 0;
+  color: #5b564f;
+}
+
+.app-layout {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 1.5rem;
+  padding: 0 2.5rem 2.5rem;
+}
+
+@media (max-width: 900px) {
+  .app-layout {
+    grid-template-columns: 1fr;
+  }
+}

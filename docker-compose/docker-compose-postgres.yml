@@ -1,0 +1,25 @@
+services:
+  db:
+    image: postgres:18-alpine
+    container_name: postgres
+    environment:
+      POSTGRES_USER: reddy
+      POSTGRES_PASSWORD: change_me
+      POSTGRES_DB: mydb
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data  # Data is stored in this location 
+
+volumes:
+  pgdata:
+
+# docker compose -f docker-compose-postgres.yml up -d :::: start the container -> -f as the file nem is different
+# DB - mydb 
+
+# - docker compose -f docker-compose-postgres.yml down -v :::: Remove containers and volume (destroys data)
+# - docker compose -f docker-compose-postgres.yml stop ::::: Stop (keeps everything)
+# - docker compose -f docker-compose-postgres.yml down :::: Remove containers (still keeps volume/data)
+
+# - connection url ::: jdbc:postgresql://localhost:5432/mydb
+

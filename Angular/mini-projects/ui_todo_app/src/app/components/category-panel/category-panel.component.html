@@ -1,0 +1,59 @@
+<section class="panel">
+  <div class="panel-header">
+    <h2>Categories</h2>
+    <p class="helper">Pick a category to filter the main list.</p>
+  </div>
+
+  <button
+    class="category-button"
+    [class.active]="filterState().categoryId === 'all'"
+    type="button"
+    (click)="selectCategory('all')"
+  >
+    <span>All categories</span>
+    <span class="count">{{ store.state().todos.length }}</span>
+  </button>
+
+  <ul class="category-list">
+    <li *ngFor="let category of categories(); trackBy: trackById">
+      <button
+        class="category-button"
+        type="button"
+        [class.active]="filterState().categoryId === category.id"
+        (click)="selectCategory(category.id)"
+      >
+        <span>{{ category.name }}</span>
+        <span class="count">{{ categoryCounts().get(category.id) ?? 0 }}</span>
+      </button>
+
+      <div class="category-actions" *ngIf="!isUncategorized(category.id)">
+        <button type="button" (click)="startRename(category)">Rename</button>
+        <button type="button" class="danger" (click)="deleteCategory(category)">Delete</button>
+      </div>
+
+      <form
+        *ngIf="editingCategoryId() === category.id"
+        class="rename-form"
+        (ngSubmit)="saveRename(category.id)"
+      >
+        <input [formControl]="renameControl" placeholder="New name" />
+        <button type="submit" [disabled]="renameControl.invalid">Save</button>
+        <button type="button" (click)="cancelRename()">Cancel</button>
+      </form>
+    </li>
+  </ul>
+
+  <form class="add-form" [formGroup]="addCategoryForm" (ngSubmit)="addCategory()">
+    <label for="category-name">New category</label>
+    <input
+      id="category-name"
+      type="text"
+      formControlName="name"
+      placeholder="e.g., School"
+    />
+    <button type="submit" [disabled]="addCategoryForm.invalid">Add category</button>
+    <p class="error" *ngIf="addCategoryForm.controls.name.touched && addCategoryForm.invalid">
+      Category name is required.
+    </p>
+  </form>
+</section>

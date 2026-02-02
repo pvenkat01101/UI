@@ -1,0 +1,97 @@
+<section class="search-shell">
+  <!-- Title area: clarifies this is the Open Library search. -->
+  <header class="hero">
+    <p class="badge">Open Library • Search API</p>
+    <h1>Open Library Real-Time Search</h1>
+    <p class="subtitle">Type a query, pause, and we fetch matching books from Open Library.</p>
+  </header>
+
+  <!-- Search input bound to the reactive form control. -->
+  <div class="search-card">
+    <label for="openlibrary-query">Search for a book</label>
+    <div class="search-input">
+      <span class="icon">🔎</span>
+      <input
+        id="openlibrary-query"
+        type="text"
+        placeholder="Try: dune, the hobbit, clean code"
+        autocomplete="off"
+        [formControl]="searchControl"
+      />
+      <span class="meta">Debounce: {{ debounceMs }}ms</span>
+    </div>
+    <p class="hint">Minimum {{ minQueryLength }} characters. Results are debounced.</p>
+  </div>
+
+  @if (vm$ | async; as vm) {
+    <!-- Status area: idle / loading / error. -->
+    <div class="status">
+      @if (vm.showIdle) {
+        <p class="state">Type to search. Results appear when you pause.</p>
+      } @else if (vm.showTooShort) {
+        <p class="state">Keep typing… at least {{ minQueryLength }} characters.</p>
+      } @else if (vm.loading) {
+        <div class="loading">
+          <span class="spinner"></span>
+          <span>Searching Open Library…</span>
+        </div>
+      } @else if (vm.error) {
+        <div class="error">{{ vm.error }}</div>
+      }
+    </div>
+
+    @if (!vm.loading && !vm.error && vm.canSearch) {
+      @if (vm.results.length === 0) {
+        <p class="state">No results yet. Try a different query.</p>
+      } @else {
+        <!-- Results list: title highlighting is safe (no innerHTML). -->
+        <div class="results">
+          <div class="results-header">
+            <h2>Results</h2>
+            <span class="count">{{ vm.results.length }}</span>
+          </div>
+          <div class="result-list">
+            @for (book of vm.results; track book.key) {
+              <article class="result-card">
+                @if (book.coverUrl) {
+                  <img [src]="book.coverUrl" [alt]="book.title" />
+                } @else {
+                  <div class="thumb placeholder">No cover</div>
+                }
+                <div class="result-body">
+                  <h3>
+                    @for (part of book.highlightedTitle; track $index) {
+                      @if (part.match) {
+                        <mark>{{ part.text }}</mark>
+                      } @else {
+                        <span>{{ part.text }}</span>
+                      }
+                    }
+                  </h3>
+                  <p class="authors">
+                    @if (book.authors.length) {
+                      {{ book.authors.join(', ') }}
+                    } @else {
+                      Unknown author
+                    }
+                  </p>
+                  <p class="meta-line">
+                    @if (book.firstPublishYear) {
+                      First published: {{ book.firstPublishYear }}
+                    } @else {
+                      First publish year unknown
+                    }
+                  </p>
+                </div>
+              </article>
+            }
+          </div>
+        </div>
+      }
+    }
+  }
+</section>
+
+<!-- References:
+  - Angular template control flow (@if, @for): https://angular.dev/guide/templates/control-flow
+-->

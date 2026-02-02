@@ -117,7 +117,8 @@ Key difference: In the legacy approach, the `bootstrap` array in `@NgModule` met
 | Default since | Angular 9 (Ivy) | Was default before Angular 9 |
 | Production use | Always | Never (dev only, deprecated) |
 
-With AOT (the default since Angular 9 / Ivy), templates are compiled into efficient JavaScript instructions during the build. The browser never sees the raw HTML templates — it only executes the compiled render functions.
+With AOT (the default since Angular 9 / Ivy), templates are compiled into efficient JavaScript instructions during the build. The browser never sees the raw HTML templates — it only executes the compiled render functions. <br>
+With  AOT we don't need to compile again in production as they are Template Parsing, Code generation and Tree Shaking is done upfront and In browser only execution and rendering.
 
 ### 1.3 The Platform Concept
 

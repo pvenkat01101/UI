@@ -1,0 +1,128 @@
+.panel {
+  background: #fffefc;
+  border: 1px solid #e0d7ca;
+  border-radius: 12px;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.panel-header h2 {
+  margin: 0 0 0.2rem;
+  font-size: 1.5rem;
+}
+
+.helper {
+  margin: 0;
+  color: #6a6156;
+}
+
+.header-actions {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.add-form {
+  display: grid;
+  grid-template-columns: 2fr 1fr auto;
+  gap: 0.75rem;
+  align-items: end;
+}
+
+.add-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  font-weight: 600;
+}
+
+.error {
+  margin: 0;
+  color: #b33d2f;
+}
+
+.filters {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: center;
+}
+
+.filter-group {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.filter-group .label {
+  font-weight: 600;
+  color: #5b564f;
+}
+
+.filter-group button.active {
+  border-color: #c69d54;
+  background: #ffe9c5;
+}
+
+.filter-summary {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  font-size: 0.9rem;
+  color: #6a6156;
+}
+
+.todo-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  min-height: 40px;
+}
+
+.empty {
+  margin: 0;
+  color: #8a8175;
+  font-style: italic;
+}
+
+.counts {
+  display: flex;
+  gap: 1rem;
+  font-weight: 600;
+  color: #5b564f;
+}
+
+.footer {
+  border-top: 1px solid #e5dccf;
+  padding-top: 0.8rem;
+}
+
+.hint {
+  margin: 0;
+  font-size: 0.85rem;
+  color: #6a6156;
+}
+
+.danger {
+  background: #ffd7d1;
+}
+
+@media (max-width: 900px) {
+  .add-form {
+    grid-template-columns: 1fr;
+  }
+
+  .panel-header {
+    flex-direction: column;
+  }
+}

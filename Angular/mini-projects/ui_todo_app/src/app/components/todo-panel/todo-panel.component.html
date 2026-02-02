@@ -1,0 +1,117 @@
+<section class="panel">
+  <div class="panel-header">
+    <div>
+      <h2>Todos</h2>
+      <p class="helper">Add, filter, and reorder tasks. Everything is local and private.</p>
+    </div>
+    <div class="header-actions">
+      <button type="button" (click)="store.undo()" [disabled]="!store.canUndo()">Undo</button>
+      <button type="button" (click)="store.redo()" [disabled]="!store.canRedo()">Redo</button>
+      <button type="button" class="danger" (click)="resetApp()">Reset App</button>
+    </div>
+  </div>
+
+  <form class="add-form" [formGroup]="addTodoForm" (ngSubmit)="addTodo()">
+    <label>
+      New todo
+      <input
+        type="text"
+        formControlName="title"
+        placeholder="Write something useful"
+        aria-label="Todo title"
+      />
+    </label>
+
+    <label>
+      Category
+      <select formControlName="categoryId">
+        <option *ngFor="let category of store.categories(); trackBy: trackByCategoryId" [value]="category.id">
+          {{ category.name }}
+        </option>
+      </select>
+    </label>
+
+    <button type="submit" [disabled]="addTodoForm.invalid">Add todo</button>
+  </form>
+
+  <p class="error" *ngIf="addTodoForm.controls.title.touched && addTodoForm.controls.title.invalid">
+    Title is required and must be at least 3 characters.
+  </p>
+
+  <div class="filters">
+    <div class="filter-group">
+      <span class="label">Status</span>
+      <button
+        type="button"
+        [class.active]="store.filterState().status === 'all'"
+        (click)="setStatusFilter('all')"
+      >
+        All
+      </button>
+      <button
+        type="button"
+        [class.active]="store.filterState().status === 'active'"
+        (click)="setStatusFilter('active')"
+      >
+        Active
+      </button>
+      <button
+        type="button"
+        [class.active]="store.filterState().status === 'completed'"
+        (click)="setStatusFilter('completed')"
+      >
+        Completed
+      </button>
+    </div>
+
+    <div class="filter-group search">
+      <label class="label" for="search">Search</label>
+      <input
+        id="search"
+        #searchInput
+        type="text"
+        [formControl]="searchControl"
+        placeholder="Search todos"
+        aria-label="Search todos"
+      />
+    </div>
+  </div>
+
+  <div class="filter-summary">
+    <span>Showing: {{ store.filterState().status }}</span>
+    <span>Category: {{ store.activeCategoryName() }}</span>
+    <span *ngIf="store.filterState().search.trim().length > 0">
+      Search: "{{ store.filterState().search }}"
+    </span>
+  </div>
+
+  <div
+    class="todo-list"
+    cdkDropList
+    [cdkDropListData]="store.filteredTodos()"
+    (cdkDropListDropped)="onDrop($event)"
+  >
+    <app-todo-item
+      *ngFor="let todo of store.filteredTodos(); trackBy: trackById"
+      [todo]="todo"
+      [categories]="store.categories()"
+    ></app-todo-item>
+  </div>
+
+  <p class="empty" *ngIf="store.filteredTodos().length === 0">
+    No todos match this filter.
+  </p>
+
+  <div class="counts">
+    <span>Total: {{ store.counts().total }}</span>
+    <span>Active: {{ store.counts().active }}</span>
+    <span>Completed: {{ store.counts().completed }}</span>
+  </div>
+
+  <footer class="footer">
+    <p class="hint">
+      Shortcuts: Ctrl/Cmd + Z (undo), Ctrl/Cmd + Shift + Z or Ctrl/Cmd + Y (redo), Ctrl/Cmd + K
+      (focus search), Esc (cancel edit).
+    </p>
+  </footer>
+</section>
